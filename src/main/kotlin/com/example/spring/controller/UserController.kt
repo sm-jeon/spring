@@ -2,7 +2,9 @@ package com.example.spring.controller
 
 import com.example.spring.controller.dto.SignInDTO
 import com.example.spring.controller.dto.SignUpDTO
+import com.example.spring.entity.Session
 import com.example.spring.entity.User
+import com.example.spring.service.SessionService
 import com.example.spring.service.UserService
 import jakarta.servlet.http.HttpSession
 import org.springframework.beans.factory.annotation.Autowired
@@ -16,7 +18,8 @@ import org.springframework.web.bind.support.SessionStatus
 
 @RestController
 class UserController @Autowired constructor(
-    val userService: UserService
+    val userService: UserService,
+    val sessionService: SessionService,
 ) {
     @PostMapping("/login")
     fun signIn(
@@ -25,7 +28,8 @@ class UserController @Autowired constructor(
         model: Model
     ): ResponseEntity<Nothing> {
         if(userService.exist(signInDTO.toUser())) {
-            model.addAttribute("user_id", session.id)
+            sessionService.register(Session(session.id, signInDTO.name))
+            model.addAttribute("user_id", signInDTO.name)
             return ResponseEntity.ok().build()
         }
         return ResponseEntity.status(HttpStatusCode.valueOf(401)).build()
