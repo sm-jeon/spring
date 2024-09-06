@@ -1,22 +1,22 @@
 package com.example.spring.service
 
 import com.example.spring.entity.Session
-import com.example.spring.repository.SessionRepository
+import com.example.spring.repository.SessionRepo
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 
 @Service
 class SessionService @Autowired constructor(
-    val repository: SessionRepository
+    private val sessionRepo: SessionRepo
 ) {
     fun register(session: Session) {
-        repository.save(session)
+        sessionRepo.save(session)
     }
 
     fun validate(session: Session): Boolean {
         return session.id
-            ?.let { repository.findByIdOrNull(it) }
+            ?.let { sessionRepo.findByIdOrNull(it) }
             ?.let { it.userId == session.userId }
             ?: false
     }

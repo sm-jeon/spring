@@ -18,8 +18,8 @@ import org.springframework.web.bind.support.SessionStatus
 
 @RestController
 class UserController @Autowired constructor(
-    val userService: UserService,
-    val sessionService: SessionService,
+    private val userService: UserService,
+    private val sessionService: SessionService,
 ) {
     @PostMapping("/login")
     fun signIn(

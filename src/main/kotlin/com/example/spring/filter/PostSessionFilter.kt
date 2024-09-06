@@ -13,7 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired
 
 @WebFilter("/post/*")
 class PostSessionFilter @Autowired constructor(
-    val sessionService: SessionService,
+    private val sessionService: SessionService,
 ): Filter {
 
     override fun doFilter(p0: ServletRequest?, p1: ServletResponse?, p2: FilterChain) {
