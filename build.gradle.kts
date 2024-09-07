@@ -29,6 +29,8 @@ dependencies {
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	implementation("org.springframework.session:spring-session-data-redis")
 
+	implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.3.0")
+
 	runtimeOnly("mysql:mysql-connector-java:8.0.33")
 
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
