@@ -14,22 +14,25 @@ import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.SessionAttributes
 import org.springframework.web.bind.support.SessionStatus
 
 @RestController
+@SessionAttributes(value = ["user_id"])
 class UserController @Autowired constructor(
     private val userService: UserService,
     private val sessionService: SessionService,
 ) {
-    @PostMapping("/login")
+    @PostMapping("/signin")
     fun signIn(
         @RequestBody signInDTO: SignInDTO,
         session: HttpSession,
         model: Model
     ): ResponseEntity<Nothing> {
-        if(userService.exist(signInDTO.toUser())) {
-            sessionService.register(Session(session.id, signInDTO.name))
-            model.addAttribute("user_id", signInDTO.name)
+        val user = userService.verifyUser(signInDTO.toUser())
+        if(user!=null) {
+            sessionService.register(Session(session.id, user.id))
+            model.addAttribute("user_id", user.id)
             return ResponseEntity.ok().build()
         }
         return ResponseEntity.status(HttpStatusCode.valueOf(401)).build()

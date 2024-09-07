@@ -17,7 +17,13 @@ class UserService @Autowired constructor(
         return userRepo.save(user)
     }
 
-    fun exist(user: User): Boolean {
+    fun verifyUser(user: User): User? {
+        return userRepo.findByName(user.name)?.also {
+            encoder.matches(user.password, it.password)
+        }
+    }
+
+    fun isExistName(user: User): Boolean {
         return userRepo.findByName(user.name)?.let {
             encoder.matches(user.password, it.name)
         } ?: false

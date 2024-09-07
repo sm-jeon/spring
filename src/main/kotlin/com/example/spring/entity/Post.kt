@@ -12,10 +12,10 @@ import jakarta.persistence.Id
 class Post(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long,
+    val id: Long ? = null,
 
-    var title: String,
-    var content: String,
+    var title: String = "",
+    var content: String = "",
 
-    var userId: Long,
+    var userId: Long = 0,
 )

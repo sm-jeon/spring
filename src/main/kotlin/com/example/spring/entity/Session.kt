@@ -8,5 +8,5 @@ import org.springframework.data.redis.core.RedisHash
 class Session(
     @Id
     val id: String? = null,
-    val userId: String? = null,
+    val userId: Long? = null,
 )
