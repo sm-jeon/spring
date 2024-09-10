@@ -6,10 +6,12 @@ import com.example.spring.service.PostService
 import io.swagger.v3.oas.annotations.Parameter
 import io.swagger.v3.oas.annotations.responses.ApiResponse
 import io.swagger.v3.oas.annotations.responses.ApiResponses
+import io.swagger.v3.oas.annotations.tags.Tag
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
+@Tag(name = "Post")
 @RestController
 @RequestMapping("/post")
 @SessionAttributes(value = ["user_id"])

@@ -9,6 +9,7 @@ import com.example.spring.service.UserService
 import io.swagger.v3.oas.annotations.media.Content
 import io.swagger.v3.oas.annotations.responses.ApiResponse
 import io.swagger.v3.oas.annotations.responses.ApiResponses
+import io.swagger.v3.oas.annotations.tags.Tag
 import jakarta.servlet.http.HttpSession
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatusCode
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController
 import org.springframework.web.bind.annotation.SessionAttributes
 import org.springframework.web.bind.support.SessionStatus
 
+@Tag(name = "User")
 @RestController
 @SessionAttributes(value = ["user_id"])
 class UserController @Autowired constructor(
