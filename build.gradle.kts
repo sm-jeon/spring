@@ -31,6 +31,8 @@ dependencies {
 
 	implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.3.0")
 
+	implementation("org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE")
+
 	runtimeOnly("mysql:mysql-connector-java:8.0.33")
 
 	testImplementation("org.springframework.boot:spring-boot-starter-test")

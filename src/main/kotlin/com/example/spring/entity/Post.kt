@@ -18,4 +18,6 @@ class Post(
     var content: String = "",
 
     var userId: Long = 0,
+
+    var imageUrl: String? = null
 )

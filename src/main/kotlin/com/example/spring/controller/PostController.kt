@@ -17,7 +17,7 @@ import java.io.File
 @RequestMapping("/post")
 @SessionAttributes(value = ["user_id"])
 class PostController @Autowired constructor(
-    private val postService: PostService
+    private val postService: PostService,
 ) {
 
     @ApiResponses(
@@ -28,7 +28,9 @@ class PostController @Autowired constructor(
         @Parameter(hidden = true) @ModelAttribute("user_id") userId: Long,
         @ModelAttribute postDTO: AddPostDTO,
     ): ResponseEntity<Post> {
-        postDTO.image?.transferTo(File("C:\\Temp\\" + postDTO.image.originalFilename))
-        return ResponseEntity.ok(postService.addPost(postDTO.toPost(userId)))
+        val file = postDTO.image?.let {
+            File(it.originalFilename).apply { it.transferTo(this) }
+        }
+        return ResponseEntity.ok(postService.addPost(postDTO.toPost(userId), file))
     }
 }
