@@ -10,6 +10,7 @@ import io.swagger.v3.oas.annotations.tags.Tag
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
+import java.io.File
 
 @Tag(name = "Post")
 @RestController
@@ -25,8 +26,9 @@ class PostController @Autowired constructor(
     @PostMapping
     fun addPost(
         @Parameter(hidden = true) @ModelAttribute("user_id") userId: Long,
-        @RequestBody postDTO: AddPostDTO,
+        @ModelAttribute postDTO: AddPostDTO,
     ): ResponseEntity<Post> {
+        postDTO.image?.transferTo(File("C:\\Temp\\" + postDTO.image.originalFilename))
         return ResponseEntity.ok(postService.addPost(postDTO.toPost(userId)))
     }
 }
