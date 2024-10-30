@@ -11,7 +11,7 @@ import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
 import org.springframework.beans.factory.annotation.Autowired
 
-@WebFilter("/post/*")
+@WebFilter("/post/*", "/see/*")
 class PostSessionFilter @Autowired constructor(
     private val sessionService: SessionService,
 ): Filter {

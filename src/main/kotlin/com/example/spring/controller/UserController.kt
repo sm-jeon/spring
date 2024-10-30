@@ -17,9 +17,11 @@ import org.springframework.http.ResponseEntity
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
+import org.springframework.web.bind.annotation.RequestPart
 import org.springframework.web.bind.annotation.RestController
 import org.springframework.web.bind.annotation.SessionAttributes
 import org.springframework.web.bind.support.SessionStatus
+import org.springframework.web.multipart.MultipartFile
 
 @Tag(name = "User")
 @RestController
@@ -66,5 +68,17 @@ class UserController @Autowired constructor(
         sessionStatus: SessionStatus
     ) {
         sessionStatus.setComplete()
+    }
+
+    @PostMapping
+    fun test(
+        image: MultipartFile,
+        title: String,
+        description: String
+    ){
+        image.inputStream
+        println(image.originalFilename)
+        println(title)
+        println(description)
     }
 }
