@@ -8,8 +8,12 @@ import org.aspectj.lang.annotation.AfterThrowing
 import org.aspectj.lang.annotation.Around
 import org.aspectj.lang.annotation.Aspect
 import org.aspectj.lang.annotation.Before
+import org.springframework.core.annotation.Order
+import org.springframework.stereotype.Component
 
+@Component
 @Aspect
+@Order(1)
 class Aspect {
     @Before("PointCut.servicePointCut()")
     fun serviceStart(point: JoinPoint) {
@@ -29,11 +33,11 @@ class Aspect {
     fun serviceAfter(point: JoinPoint) {
     }
 
-    @AfterReturning("PointCut.servicePointCut()")
+    @AfterReturning("PointCut.servicePointCut()", returning = "returnObject")
     fun serviceAfterReturning(returnObject: Any) {
     }
 
-    @AfterThrowing("PointCut.servicePointCut()")
+    @AfterThrowing("PointCut.servicePointCut()", throwing = "e")
     fun serviceAfterThrowing(e: Exception) {
     }
 }
