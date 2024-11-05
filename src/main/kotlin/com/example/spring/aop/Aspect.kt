@@ -1,6 +1,7 @@
 package com.example.spring.aop
 
 import org.aspectj.lang.JoinPoint
+import org.aspectj.lang.ProceedingJoinPoint
 import org.aspectj.lang.annotation.After
 import org.aspectj.lang.annotation.AfterReturning
 import org.aspectj.lang.annotation.AfterThrowing
@@ -17,7 +18,11 @@ class Aspect {
         val arguments = point.args
     }
     @Around("PointCut.servicePointCut()")
-    fun serviceAround(point: JoinPoint) {
+    fun serviceAround(point: ProceedingJoinPoint) {
+        val startTime = System.currentTimeMillis()
+        point.proceed()
+        val endTime = System.currentTimeMillis()
+        val runningTime = endTime - startTime
     }
 
     @After("PointCut.servicePointCut()")
@@ -25,10 +30,10 @@ class Aspect {
     }
 
     @AfterReturning("PointCut.servicePointCut()")
-    fun serviceAfterReturning(point: JoinPoint) {
+    fun serviceAfterReturning(returnObject: Any) {
     }
 
     @AfterThrowing("PointCut.servicePointCut()")
-    fun serviceAfterThrowing(point: JoinPoint) {
+    fun serviceAfterThrowing(e: Exception) {
     }
 }
